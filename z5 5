@@ -38,3 +38,6 @@ int main(){
 	printf("%d\n", liczba);
 	return 0; 
 }
+
+
+zrob z6 /9  , z5/12,14
