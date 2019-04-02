@@ -1,0 +1,35 @@
+int main(){
+	double tablica[50][50];
+	double wartosc;
+	int  W, K;
+	printf("podaj ile wierszy ");
+	scanf_s("%d", &W);
+	printf("podaj ile kolumn ");
+	scanf_s("%d", &K);
+	for (int i=0;i<W;i++)
+	{
+		for (int j = 0; j < K; j++)
+		{
+			//printf("\n podaj wartosc dla %d wiersza i %d kolumny ", i,j );
+			scanf_s("%lf", &wartosc);
+			tablica[i][j] = wartosc;
+		}
+	}
+	int x, y;
+	printf("podaj do ktorego wiersza ");
+	scanf_s("%d", &x);
+	printf("podaj do ktorej kolumny ");
+	scanf_s("%d", &y);
+	for (int i=0;i<x;i++)
+	{
+		for (int j = 0; j < y; j++)
+		{
+			printf("%.2f  ", tablica[i][j]);
+		}
+		printf("\n");
+	}
+	
+	
+
+	return 0; 
+}
