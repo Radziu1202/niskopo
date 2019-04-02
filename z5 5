@@ -1,0 +1,40 @@
+int main(){
+	int N, M,wartosc;
+	printf("podaj N: ");
+	scanf_s("%d", &N);
+	printf("\npodaj M: ");
+	scanf_s("%d", &M);
+	double** tablica = new double* [N];
+	for (int i=0;i<M;i++)
+	{
+		tablica[i] = new double[M];
+	}
+	for( int i=0; i<N;i++)
+	{
+		for (int j=0;j<M;j++)
+		{
+			scanf_s("%lf", &tablica[i][j]);
+		}
+	}
+	int X;
+	printf("\npodaj X ");
+	scanf_s("%d", &X);
+	int liczba=0;
+	double suma_kolumny = 0;
+
+	for (int i = 0; i<M; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			suma_kolumny += tablica[j][i];
+		}
+		if (suma_kolumny>X)
+		{
+			liczba++;
+		}
+		suma_kolumny = 0;
+	}
+	
+	printf("%d\n", liczba);
+	return 0; 
+}
