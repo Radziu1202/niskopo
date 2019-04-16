@@ -1,0 +1,62 @@
+#include "stdafx.h"
+#include <math.h>
+
+
+char opcja;
+double kwota;
+double podatek;
+
+double podateka(double x)
+{
+	if (x < 64000)
+		return 0;
+	else
+		return x*0.1;
+}
+
+double podatekb(double x)
+{
+	if (x < 64000)
+		return 250;
+	else
+	{
+		int nadwyzka;
+		int podatek;
+		nadwyzka = x - 64000;
+		podatek = 250 + nadwyzka*0.15;
+		return podatek;
+	}
+}
+
+double podatekc(double x)
+{
+	return x*0.17;
+}
+
+
+
+int main() {
+	printf("\npodaj kwote: ");
+	scanf_s("%lf", &kwota);
+	printf("Wybierz opcje:\na -dziadkowie - rodzice - dzieci\nb - rodzenstwo, rodzenstwo rodzicow - bratankowie/nice, siostrzency/nice \nc - inni: \n opcja:  ");
+	scanf_s(" %c", &opcja);
+	switch (opcja)
+	{
+	case 'a':
+		podatek = podateka(kwota);
+		break;
+	case 'b':
+		podatek = podatekb(kwota);
+		break;
+	case 'c':
+		podatek = podatekc(kwota);
+		break;
+	default:
+		break;
+	}
+	printf("podatek wynosi %.2lf zloty", podatek);
+
+	
+
+
+}
