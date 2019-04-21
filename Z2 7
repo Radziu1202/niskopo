@@ -1,0 +1,43 @@
+#include "pch.h"
+#include <iostream>
+
+int main()
+{
+	bool dalej = true;
+	int opcje;
+	double x,wynik;
+	while (dalej) {
+		printf("podaj zmienna x: ");
+		scanf_s("%lf", &x);
+		printf("podaj opcje: ");
+		scanf_s("%d", &opcje);
+		switch (opcje) {
+		case 0: wynik = sin(x);
+			break;
+		case 1: if (cos(x) != 0) {
+			wynik = tan(x);
+		}
+				else { dalej = false; }
+			break;
+		case 2: if (x >=-1 && x<=1) { wynik = asin(x);
+		}
+			break;
+		case 3: if (x >= 0) { wynik = sqrt(x);
+		}
+			break;
+		case 4:if (x > 0) { wynik = log(x);
+		}
+			break;
+		case 5: if (x != 0) { wynik = 1.0 / x;
+		}
+			break;
+		case 6: wynik = x*x;
+			break;
+		
+		default: dalej = false;
+	
+		}
+		printf("%lf\n", wynik);
+		
+	}
+}
