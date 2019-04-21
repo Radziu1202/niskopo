@@ -1,0 +1,42 @@
+#include "stdafx.h"
+#include <math.h>
+
+
+	float a, b, R;
+	scanf_s("%f%f", &a, &b);
+	R = 4 * x + 2 * (a - b - 1) / (a*a + b*b + 1);
+	printf("\n%.2f\n", R);
+	return 0;*/
+
+
+/*double x, y, T;
+printf("podaj x:");
+scanf_s("%lf", &x);
+printf("\npodaj y: ");
+scanf_s("%lf", &y);
+if (x >= 5 && y>3) {
+	T = (log(x - 5) + 1) / sqrt(y - 3);
+	printf("%lf", T);
+}
+else {
+	printf("Brak rozwiązania\n");
+}
+return 0;*/
+
+/*double faren, celsius, wynik;
+int wybor;
+printf("wcisnij 1 jesli chcesz przekonwertowac stopnie Farenheita na Celsjusza, albo 0 jesli Celsjusza na Farenheita\n");
+scanf_s("%d", &wybor);
+if (wybor == 1) {
+	printf("podaj stopnie Farenheita: ");
+	scanf_s("%lf", &faren);
+	wynik = 5 / 9.0 * (faren - 32);
+	printf(" Stopnie Celsjusza: %.2lf\n", wynik);
+}
+if (wybor == 0) {
+	printf("podaj stopnie Celsjusza: ");
+	scanf_s("%lf", &celsius);
+	wynik = 9 / 5.0 *celsius + 32;
+	printf("Stopnie Farenheita : %.2lf\n", wynik);
+}
+return 0;
