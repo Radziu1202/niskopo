@@ -1,0 +1,72 @@
+#include "stdafx.h"
+#include "pch.h"
+
+
+char vchar()
+{
+	char cc;
+	while ((cc = getchar()) <= ' ');		//mala i duza litera
+	return cc;
+}
+
+
+int main() {
+	bool opcja = true;
+	char ktora;
+	unsigned long long m = 1;
+	unsigned long long x;
+	int najstarsza = sizeof x * 8 - 1;
+	int najmlodsza = 0;
+	while (opcja)
+	{
+		printf("podaj litere: ");
+		ktora = vchar();
+		switch (ktora & 0x5F)
+		{
+		case 'N':
+
+			printf("podaj liczbe: ");
+			scanf_s("%llu", &x);
+			break;
+		case 'L':
+			m = 1;
+			m <<= sizeof m * 8 - 1;
+			while (x != 0)
+			{
+				if ((x&m) == 0)
+				{
+					najstarsza--;
+					m >>= 1;
+				}
+				else
+				{
+					x = 0;
+				}
+
+			}
+			printf("%d \n", najstarsza);
+			break;
+		case 'R':
+			m = 1;
+			while (x != 0)
+			{
+				if ((x&m) == 0)
+				{
+					najmlodsza++;
+					m <<= 1;
+				}
+				else
+				{ 
+					x = 0;
+				}
+			}
+			printf("%d \n", najmlodsza);
+			break;
+		case 'Q':
+			opcja = false;
+			break;
+		default: opcja = false;
+		}
+	}
+	return 0;
+}
