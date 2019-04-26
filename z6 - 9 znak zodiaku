@@ -1,0 +1,26 @@
+#include "pch.h"
+#include <iostream>
+
+struct znak
+{
+	char zodiak[14];
+	int dzien;
+
+};
+
+int main() {
+	znak tablica[] = { {"wodnik",20},{"ryby", 19},{"Baran",21 }, {"Byk",20}, {"bliznieta", 23}, {"rak", 22},{"lew", 23},{"panna",24}, {"waga",23},{"skorpion",23},{"strzelec",22},{"koziorozec",22} };
+	int miesiac, dzien;
+	printf("podaj miesiac: ");
+	scanf_s("%d", &miesiac);
+	miesiac -= 1;
+	printf("\npodaj dzien: ");
+	scanf_s("%d", &dzien);
+	if(dzien>=tablica[miesiac].dzien)
+	{
+		printf("%s", tablica[miesiac].zodiak);
+	}
+	else
+		printf("%s", tablica[miesiac-1].zodiak);
+	return 0;
+}
