@@ -1,0 +1,81 @@
+najpierw fopen na stronie doktora plik C5
+
+fscanf_s(plik, "%d", &x) - wczytywanie pierwszej liczby 
+
+#include "stdafx.h"
+#include <math.h>
+#include <stdio.h>
+
+
+struct pomiar
+{
+	int seria;
+	double tab[4];
+	int kod;
+};
+
+struct wyniki
+{
+
+int n;
+double max(double* tab, int rozmiar)
+{
+	double maksymalna = tab[0];
+	for (int i = 1; i < n; i++)
+	{
+		if (tab[i] > maksymalna) maksymalna = tab[i];
+	}
+	return maksymalna;
+}
+
+double min(double* tab, int rozmiar)
+{
+	double minimalna = tab[0];
+	for (int i = 1; i < n; i++)
+	{
+		if (tab[i] < minimalna) minimalna = i;
+	}
+	return minimalna;
+}
+
+double srednia(double* tab, int rozmiar)
+{
+	double suma = 0;
+	for (int i = 0; i < n; i++)
+	{
+		suma += tab[i];
+	}
+	double srednia = suma/n;
+	return srednia;
+}
+
+double tablica[4];
+
+
+int main()
+{
+	FILE *plik;
+	FILE *plik_do_zapisu;
+	fopen_s(&plik, "PLIK.TXT", "rt+");
+	fopen_s(&plik_do_zapisu, "wyniki.txt", "w+");
+	if (plik == NULL)
+		printf("\nNie można otworzyć pliku.");
+	int n;
+	struct pomiar pierwszy;
+for(int i=0;i<n;i++)
+{
+	fscanf_s(plik, "%d", pierwszy.seria);
+	for (int j = 0; j < 4; j++)
+	{
+		fscanf_s(plik, "%d", pierwszy.tab[j]);
+	}
+
+	for(int i =0; i<4 ;i++)
+	{
+		fscanf_s(plik, "%lf", &x);
+		printf()
+	}
+	fclose(plik);
+
+}
+
