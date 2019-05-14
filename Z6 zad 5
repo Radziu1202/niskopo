@@ -1,0 +1,56 @@
+#include "stdafx.h"
+#include <math.h>
+#include <stdio.h>
+
+
+
+int n;
+double max(double* tab, int rozmiar)
+{
+	double maksymalna = tab[0];
+	for (int i = 1; i < n; i++)
+	{
+		if (tab[i] > maksymalna) maksymalna = tab[i];
+	}
+	return maksymalna;
+}
+
+double min(double* tab, int rozmiar)
+{
+	double minimalna = tab[0];
+	for (int i = 1; i < n; i++)
+	{
+		if (tab[i] < minimalna) minimalna = i;
+	}
+	return minimalna;
+}
+
+double srednia(double* tab, int rozmiar)
+{
+	double suma = 0;
+	for (int i = 0; i < n; i++)
+	{
+		suma += tab[i];
+	}
+	double srednia = suma/n;
+	return srednia;
+}
+
+int main()
+{
+	int opcja;
+	printf("Podaj n: ");
+	scanf_s("%d", &n);
+	double *tablica = new double[n];
+	for (int i = 0; i < n; i++)
+	{
+		scanf_s("%lf", &tablica[i]);
+	}
+	double(*T[])(double*, int) = { max, min, srednia};
+	printf("podaj opcje:\n0.max\n1.min\n2.srednia\n");
+	scanf("%d", &opcja);
+	double wynik=T[opcja](tablica, n);
+	printf("%.2lf\n", wynik);
+
+}
+
