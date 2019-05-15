@@ -3,54 +3,78 @@
 #include <stdio.h>
 
 
-
-int n;
-double max(double* tab, int rozmiar)
+struct pomiar
 {
-	double maksymalna = tab[0];
-	for (int i = 1; i < n; i++)
-	{
-		if (tab[i] > maksymalna) maksymalna = tab[i];
-	}
-	return maksymalna;
-}
+	int seria;
+	double tab[4];
+	int kod;
+};
 
-double min(double* tab, int rozmiar)
-{
-	double minimalna = tab[0];
-	for (int i = 1; i < n; i++)
-	{
-		if (tab[i] < minimalna) minimalna = i;
-	}
-	return minimalna;
-}
 
-double srednia(double* tab, int rozmiar)
-{
-	double suma = 0;
-	for (int i = 0; i < n; i++)
-	{
-		suma += tab[i];
-	}
-	double srednia = suma/n;
-	return srednia;
-}
 
-int main()
-{
-	int opcja;
-	printf("Podaj n: ");
-	scanf_s("%d", &n);
-	double *tablica = new double[n];
-	for (int i = 0; i < n; i++)
+	int n;
+	double max(double* tab, int rozmiar)
 	{
-		scanf_s("%lf", &tablica[i]);
+		double maksymalna = tab[0];
+		for (int i = 1; i < n; i++)
+		{
+			if (tab[i] > maksymalna) maksymalna = tab[i];
+		}
+		return maksymalna;
 	}
-	double(*T[])(double*, int) = { max, min, srednia};
-	printf("podaj opcje:\n0.max\n1.min\n2.srednia\n");
-	scanf("%d", &opcja);
-	double wynik=T[opcja](tablica, n);
-	printf("%.2lf\n", wynik);
 
-}
+	double min(double* tab, int rozmiar)
+	{
+		double minimalna = tab[0];
+		for (int i = 1; i < n; i++)
+		{
+			if (tab[i] < minimalna) minimalna = i;
+		}
+		return minimalna;
+	}
+
+	double srednia(double* tab, int rozmiar)
+	{
+		double suma = 0;
+		for (int i = 0; i < n; i++)
+		{
+			suma += tab[i];
+		}
+		double srednia = suma / n;
+		return srednia;
+	}
+
+	double tablica[4];
+
+
+	int main()
+	{
+
+		double(*T[])(double*, int) = { max, min, srednia };
+		FILE *plik;
+		FILE *plik_do_zapisu;
+		fopen_s(&plik, "pomiary.TXT", "rt+");
+		fopen_s(&plik_do_zapisu, "wyniki.txt", "w+");
+		if (plik == NULL)
+			printf("\nNie można otworzyć pliku wczytywanego.");
+		if (plik_do_zapisu == NULL)
+			printf("\nNie można otworzyć pliku do zapisu.");
+		fscanf_s(plik, "%d", &n);
+		for (int i = 0; i < n; i++)
+		{
+			struct pomiar pierwszy;
+			fscanf_s(plik, "%d", &pierwszy.seria);
+			for (int j = 0; j < 4; j++)
+			{
+				fscanf_s(plik, "%lf", &pierwszy.tab[j]);
+			}
+			fscanf_s(plik, "%d", &pierwszy.kod);
+			double wynik = T[pierwszy.kod](pierwszy.tab, 4);
+			fseek(plik_do_zapisu, 0L, SEEK_END);
+			fprintf(plik_do_zapisu, "%d\n%lf\n%d\n", pierwszy.seria, wynik, pierwszy.kod);
+			fclose(plik);
+
+		}
+	}
+
 
