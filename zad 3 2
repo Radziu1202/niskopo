@@ -1,0 +1,69 @@
+#include <stdafx.h>
+#include <math.h>
+#include <stdio.h>
+
+
+char vchar()
+{
+	char cc;
+	while ((cc = getchar()) <= ' ');		//mala i duza litera
+	return cc;
+}
+
+
+
+double sinus(double x)
+{
+	return sin(x);
+}
+
+double tangens(double x)
+{
+	return tan(x);
+}
+
+double logarytm(double x)
+{
+	return log(x);
+}
+
+double pierwiastek(double x)
+{
+	return sqrt(x);
+}
+
+char opcja;
+	int main()
+	{
+
+		double(*T[])(double) = { sinus, tangens, pierwiastek ,logarytm };
+		
+		
+		
+		double x;
+		int liczba;
+		bool trwa = true;
+		while (trwa)
+		{
+			printf("podaj litere: ");
+			opcja = vchar();
+			switch (opcja & 0x5F)
+			{
+			case 'N':
+
+				printf("podaj liczbe: ");
+				scanf_s("%lf", &x);
+				break;
+			case 'F':
+				printf("podaj nr operacji: ");
+				scanf_s("%d", &liczba);
+				printf("%lf\n", T[liczba](x));
+				break;
+			case 'Q':
+				trwa = false;
+				break;
+			default: trwa = false;
+			}
+		}
+	return 0;
+	}
