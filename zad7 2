@@ -1,20 +1,38 @@
 #include "stdafx.h"
+#include "pch.h"
 #include <math.h>
-#pragma warning (disable : 4996)
 #include <stdio.h>
 
 
-using namespace std;
-char nazwa[10];
 
-int main(){
-	printf("podaj nazwe pliku wejsciowego: ");
-	scanf_s("%s", nazwa);
-	
-	FILE* plik_wej;
-	plik_wej = fopen(nazwa, "r");
-	if ((plik_wej = fopen(nazwa, "r")) == NULL)
-		printf(" \nNie można otworzyć pliku.");
-	
-}
 
+
+	int main()
+	{
+		int liczba;
+		FILE *plik_wczytany, *plik_zapisany;
+		char fname[100]; 
+		char fname2[100];
+		printf("podaj nazwe pliku wczytywanego:");
+		scanf_s("%s", &fname,100);
+		printf("podaj nazwe pliku zapisywanego:");
+		scanf_s("%s", &fname2, 100);
+		fopen_s(&plik_wczytany, fname, "r");
+		fopen_s(&plik_zapisany, fname2, "w");
+		if (plik_wczytany == NULL)
+			printf("\nNie mozna otworzyc pliku wczytywanego.");
+		if (plik_zapisany == NULL)
+			printf("\nNie mozna otworzyc pliku do zapisu.");
+		while (fgets(fname, sizeof fname, plik_wczytany) != NULL)
+		{
+			fscanf_s(plik_wczytany, "%d", &liczba);
+			if (liczba > 137)
+			{
+				fseek(plik_zapisany, 0L, SEEK_END);
+				fprintf_s(plik_zapisany, "%d ", liczba);
+			}
+		}
+		fclose(plik_wczytany);
+		fclose(plik_wczytany);
+	return 0;
+	}
