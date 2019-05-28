@@ -2,20 +2,17 @@
 #include <math.h>
 #include <stdio.h>
 
-
-
-
-int main()
+void kodowanie()
 {
 	unsigned char byte;
 	char TL[5];
-	char TK['T' - 'A' + 1]={ 0 };
+	char TK['T' - 'A' + 1] = { 0 };
 	TK['C' - 'A'] = 1;
 	TK['G' - 'A'] = 2;
 	TK['T' - 'A'] = 3;
-	
 
-	FILE *DNA,*zapis;
+
+	FILE *DNA, *zapis;
 	fopen_s(&DNA, "kod.TXT", "rt+");
 	fopen_s(&zapis, "wynik.bin", "w+");
 
@@ -27,12 +24,44 @@ int main()
 		while (feof(DNA) == 0)
 		{
 			byte = TK[TL[0] - 'A'] << 6 | TK[TL[1] - 'A'] << 4 | TK[TL[2] - 'A'] << 2 | TK[TL[3] - 'A'];
-			fputc(byte,zapis);
+			fputc(byte, zapis);
 			fscanf_s(DNA, "%s", TL, 5);
 
 		}
 	}
 	fclose(DNA);
 	fclose(zapis);
+}
+
+
+
+int main()
+{
+	unsigned char byte;
+
+	char TL[5];
+	char TN[] = "ACGT";
+
+	FILE *DNA,*zapis;
+	fopen_s(&DNA, "wynik.bin", "rt+");
+	fopen_s(&zapis, "zdekodowany.txt", "w+");
+	TL[4] = 0;
+	if (DNA == NULL)
+		printf("\nNie można otworzyć pliku.");
+	else
+	{
+		while (feof(DNA) == 0)
+		{
+			byte = fgetc(DNA);
+			TL[0] = TN[(byte >> 6)];
+			TL[1] = TN[(byte >> 4)&3];
+			TL[2] = TN[(byte >> 2)&3];
+			TL[3] = TN[byte&3];
+			fprintf_s(zapis,"%s ",TL);	
+		}
+	}
+	fclose(DNA);
+	fclose(zapis);
 	return 0;
 }
+
