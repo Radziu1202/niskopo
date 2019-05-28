@@ -23,7 +23,7 @@
 			printf("\nNie mozna otworzyc pliku wczytywanego.");
 		if (plik_zapisany == NULL)
 			printf("\nNie mozna otworzyc pliku do zapisu.");
-		while (fgets(fname, sizeof fname, plik_wczytany) != NULL)
+		while (fgets(fname, sizeof fname, plik_wczytany) != NULL)			//zobacz fEOF
 		{
 			fscanf_s(plik_wczytany, "%d", &liczba);
 			if (liczba > 137)
