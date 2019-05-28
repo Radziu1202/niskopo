@@ -1,0 +1,38 @@
+#include "stdafx.h"
+#include <math.h>
+#include <stdio.h>
+
+
+
+
+int main()
+{
+	unsigned char byte;
+	char TL[5];
+	char TK['T' - 'A' + 1]={ 0 };
+	TK['C' - 'A'] = 1;
+	TK['G' - 'A'] = 2;
+	TK['T' - 'A'] = 3;
+	
+
+	FILE *DNA,*zapis;
+	fopen_s(&DNA, "kod.TXT", "rt+");
+	fopen_s(&zapis, "wynik.bin", "w+");
+
+	if (DNA == NULL)
+		printf("\nNie można otworzyć pliku.");
+	else
+	{
+		fscanf_s(DNA, "%s", TL, 5);
+		while (feof(DNA) == 0)
+		{
+			byte = TK[TL[0] - 'A'] << 6 | TK[TL[1] - 'A'] << 4 | TK[TL[2] - 'A'] << 2 | TK[TL[3] - 'A'];
+			fputc(byte,zapis);
+			fscanf_s(DNA, "%s", TL, 5);
+
+		}
+	}
+	fclose(DNA);
+	fclose(zapis);
+	return 0;
+}
