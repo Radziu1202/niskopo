@@ -1,0 +1,41 @@
+#include "stdafx.h"
+#include <math.h>
+#include <stdio.h>
+
+
+struct trawa
+{
+
+}
+
+
+
+int main()
+{
+	char litera;
+	FILE *trawy, *zapis;
+	fopen_s(&trawy, "Trawy.TXT", "rt+");
+	fopen_s(&zapis, "wyniki.txt", "w+");
+
+	if (trawy == NULL)
+		printf("\nNie można otworzyć pliku.");
+	else
+	{
+		while (feof(trawy) == 0)
+		{
+			litera = fgetc(trawy);
+			switch (litera)
+			{
+				case 'A'
+				{
+
+				}
+			}
+	
+		}
+	}
+	fclose(trawy);
+	fclose(zapis);
+}
+	
+}
