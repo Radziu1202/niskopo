@@ -1,0 +1,67 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int ilosc_jedynek(unsigned int x)
+{
+	int wynik = 0;
+	while (x != 0)
+	{
+		if ((x & 1) == 1)
+		{
+			wynik++;
+		}
+		x >>= 1;
+	}
+	return wynik;
+}
+
+void tablica(int N, int M)
+{
+	int wartosc;
+	unsigned int ** tablica = new unsigned int*[N];
+	for (int i = 0; i < M; i++)
+	{
+		tablica[i] = new unsigned int[M];
+	}
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			scanf_s("%u", &tablica[i][j]);
+		}
+	}
+	
+	int X=0;
+	int wiersz = 0;
+	int suma_wiersza = 0;
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			suma_wiersza += ilosc_jedynek(tablica[j][i]);
+		}
+		if (suma_wiersza > X)
+		{
+			wiersz=i;
+		}
+		suma_wiersza = 0;
+	}
+	for (int i = 0; i < M; i++)
+	{
+		printf("%u ", tablica[wiersz][i]);
+	}
+}
+	int main()
+	{
+		int N, M;
+		printf("podaj N: ");
+		scanf_s("%d", &N);
+		printf("\npodaj M: ");
+		scanf_s("%d", &M);
+		tablica(N, M);
+		return 0;
+	}
