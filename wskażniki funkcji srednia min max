@@ -72,8 +72,9 @@ struct pomiar
 			double wynik = T[pierwszy.kod](pierwszy.tab, 4);
 			fseek(plik_do_zapisu, 0L, SEEK_END);
 			fprintf(plik_do_zapisu, "%d\n%lf\n%d\n", pierwszy.seria, wynik, pierwszy.kod);
-			fclose(plik);
-			fclose(plik_do_zapisu);
-
+			
 		}
+		fclose(plik);
+		fclose(plik_do_zapisu);
+
 	}
