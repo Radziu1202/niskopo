@@ -1,0 +1,79 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+char vchar()
+{
+	char cc;
+	while ((cc = getchar()) <= ' ');		//mala i duza litera
+	return cc;
+}
+
+
+double tangens(int x)
+{
+	
+	return tan(x);
+}
+
+double pierwiastek(int x)
+{
+	return sqrt(x);
+}
+
+
+double minus_liczba(int x)
+{
+	return x - 7.92;
+}
+
+
+
+
+int main()
+{	
+	int K;
+	printf("podaj wartosc K: ");
+	scanf_s("%d", &K);
+	int **R = new int*[2];
+	for (int i = 0; i < 2; i++)
+	{
+		R[i] = new int[K];
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < K; j++)
+		{
+			scanf_s("%d", &R[i][j]);
+		}
+	}
+
+	printf("\n");
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < K; j++)
+		{
+			printf("%d ", R[i][j]);
+		}
+		printf("\n");
+	}
+
+	double(*funkcje[])(int x) = { tangens,minus_liczba,pierwiastek };
+
+	double*S = new double[K];
+	for (int i = 0; i < K; i++)
+	{
+		S[i] = funkcje[R[0][i]](R[1][i]);
+	}
+	
+	for (int j = 0; j < K; j++)
+	{
+		printf("%lf ", S[j]);
+	}
+	double wynik = tan(3.14/2);
+	printf("%lf", wynik);
+
+}
