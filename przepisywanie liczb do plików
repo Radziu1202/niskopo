@@ -1,0 +1,72 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int ilosc_jedynek(unsigned int x)
+{
+	int wynik = 0;
+	while (x != 0)
+	{
+		if ((x & 1) == 1)
+		{
+			wynik++;
+		}
+		x >>= 1;
+	}
+	return wynik;
+}
+
+
+void zapisywanieALFA(unsigned int x, FILE *alfa)
+{
+	fseek(alfa, 0L, SEEK_END);
+	fprintf(alfa, "%u ", x);
+}
+
+void zapisywanieBETA(unsigned int x,FILE *beta)
+{
+	fseek(beta, 0L, SEEK_END);
+	fprintf(beta, "%u ", x);
+}
+
+int main()
+{	
+	unsigned int liczba;
+	int przelacznik = 0;
+	FILE *plik;
+	fopen_s(&plik, "Odczyty.txt", "rt+");
+	if (plik == NULL)
+		printf("\nNie można otworzyć pliku.");
+	FILE *alfa,*beta;
+	fopen_s(&alfa, "ALFA.txt", "w+");
+	fopen_s(&beta, "BETA.txt", "w+");
+	if (alfa == NULL)
+		printf("\nNie można otworzyć pliku do zapisu.");
+	if (beta == NULL)
+		printf("\nNie można otworzyć pliku do zapisu.");
+
+	while (feof(plik) == 0)
+	{
+		fscanf_s(plik, "%u", &liczba);
+		if (ilosc_jedynek(liczba) == 5)
+		{
+			przelacznik++;
+			fscanf_s(plik, "%u", &liczba);
+		}
+		if (przelacznik % 2)
+		{
+			
+			zapisywanieBETA(liczba,beta);
+		}
+		else
+		{
+			zapisywanieALFA(liczba, alfa);
+		}
+	}
+	fclose(plik);
+	fclose(beta);
+	fclose(alfa);
+	return 0;
+}
