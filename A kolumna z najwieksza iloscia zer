@@ -11,27 +11,27 @@ int najwiecej_zer(unsigned int x)
 	int zeros = 0;
 	for (int i = 0; i < rozmiar; i++)
 	{
-	
+
 		if (!(x & 1))
 			zeros++;
-		
+
 		//jak jedynek to daj else
 		x >>= 1;
 	}
 	return 0;
 }
 
-void tablica(int N, int M)
+void tablica(int wiersze, int kolumny)
 {
 	int wartosc;
-	unsigned int ** tablica = new unsigned int*[N];
-	for (int i = 0; i < M; i++)
+	unsigned int ** tablica = new unsigned int*[wiersze];
+	for (int i = 0; i < kolumny; i++)
 	{
-		tablica[i] = new unsigned int[M];
+		tablica[i] = new unsigned int[kolumny];
 	}
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < wiersze; i++)
 	{
-		for (int j = 0; j < M; j++)
+		for (int j = 0; j < kolumny; j++)
 		{
 			scanf_s("%u", &tablica[i][j]);
 		}
@@ -41,9 +41,9 @@ void tablica(int N, int M)
 	int kolumna = 0;
 	int suma_kolumny = 0;
 
-	for (int i = 0; i < M; i++)
+	for (int i = 0; i < kolumny; i++)
 	{
-		for (int j = 0; j < N; j++)
+		for (int j = 0; j < wiersze; j++)
 		{
 			suma_kolumny += najwiecej_zer(tablica[j][i]);
 		}
@@ -53,19 +53,19 @@ void tablica(int N, int M)
 		}
 		suma_kolumny = 0;
 	}
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < wiersze; i++)
 	{
-		printf("%u\d", tablica[i][kolumna]);
+		printf("%u\n", tablica[i][kolumna]);
 	}
 }
 
 int main()
 {
-		int N, M;
-		printf("podaj N: ");
-		scanf_s("%d", &N);
-		printf("\npodaj M: ");
-		scanf_s("%d", &M);
-		tablica(N, M);
-		return 0;
+	int N, M;
+	printf("podaj liczbe wierszy: ");
+	scanf_s("%d", &N);
+	printf("\npodaj liczbe kolumn: ");
+	scanf_s("%d", &M);
+	tablica(N, M);
+	return 0;
 }
