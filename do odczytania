@@ -76,6 +76,7 @@ for(int i=0;i<n;i++)
 		printf()
 	}
 	fclose(plik);
+	fclose(plik_do_zapisu);
 
 }
 
