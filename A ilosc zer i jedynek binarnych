@@ -1,0 +1,39 @@
+#include "pch.h"
+#include <stdafx.h>
+
+
+int main()
+{
+int wynik = 0;
+unsigned int x;
+scanf_s("%u", &x);
+while (x != 0)
+{
+	if ((x & 1) == 1)
+	{
+		wynik++;
+	}
+	x >>=1 ;
+}
+printf("%d", wynik);
+return 0;
+}
+
+
+
+int najwiecej_zer(unsigned int x)
+{
+	int rozmiar = sizeof(x);
+	int zeros = 0;
+	for (int i = 0; i < rozmiar; i++)
+	{
+	
+		if (!(x & 1))
+			zeros++;
+		
+		//jak jedynek to daj else
+		x >>= 1;
+	}
+	printf("%d", zeros);
+	return 0;
+}
