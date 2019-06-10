@@ -4,12 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char vchar()
-{
-	char cc;
-	while ((cc = getchar()) <= ' ');		//mala i duza litera
-	return cc;
-}
+
 
 struct komputer
 {
@@ -19,7 +14,7 @@ struct komputer
 
 
 void wpisywanie(komputer tablica[], int &index)
-{	
+{
 	printf("producent: ");
 	scanf_s("%s", tablica[index].producent, 20);
 	printf("\ncena: ");
@@ -27,7 +22,7 @@ void wpisywanie(komputer tablica[], int &index)
 	index++;
 }
 
-void wyswietlanie(komputer tablica[],int &index)
+void wyswietlanie(komputer tablica[], int &index)
 {
 	for (int i = 0; i < index; i++)
 	{
@@ -35,15 +30,15 @@ void wyswietlanie(komputer tablica[],int &index)
 	}
 }
 
-void odczytywanie(komputer tablica[],int &index)
+void odczytywanie(komputer tablica[], int &index)
 {
 	FILE *plik;
-	fopen_s(&plik, "Kompy.txt", "rt+");	
+	fopen_s(&plik, "Kompy.txt", "rt+");
 	if (plik == NULL)
 		printf("\nNie można otworzyć pliku.");
 	while (feof(plik) == 0)
 	{
-		fscanf_s(plik, "%s", tablica[index].producent,20);
+		fscanf_s(plik, "%s", tablica[index].producent, 20);
 		fscanf_s(plik, "%d", &tablica[index].cena);
 		index++;
 	}
@@ -51,73 +46,58 @@ void odczytywanie(komputer tablica[],int &index)
 }
 
 
-void tansze(komputer tablica[],int &index)
+void tansze(komputer tablica[], int &index)
 {
 	int cena;
 	printf("podaj cene: ");
 	scanf_s("%d", &cena);
-	for ( int i=0;i< index;i++)
+	for (int i = 0; i < index; i++)
 	{
 		if (tablica[i].cena < cena)
 		{
-			printf("%s %d\n", tablica[i].producent,tablica[i].cena);
+			printf("%s %d\n", tablica[i].producent, tablica[i].cena);
 		}
 	}
 }
 
- void zapisywanie(komputer tablica[],int &index)
- {	
-	 FILE *plik_do_zapisu;
-	 fopen_s(&plik_do_zapisu, "Kompy.txt", "w+");
-	 if (plik_do_zapisu == NULL)
-		 printf("\nNie można otworzyć pliku do zapisu.");
-	 for (int i = 0; i < index; i++)
-	 {
-		 fseek(plik_do_zapisu, 0L, SEEK_END);
-		 fprintf(plik_do_zapisu, "%s %d\n", tablica[i].producent,tablica[i].cena); 
-	 }
-	 fclose(plik_do_zapisu);
- }
+void zapisywanie(komputer tablica[], int &index)
+{
+	FILE *plik_do_zapisu;
+	fopen_s(&plik_do_zapisu, "Kompy.txt", "w+");
+	if (plik_do_zapisu == NULL)
+		printf("\nNie można otworzyć pliku do zapisu.");
+	for (int i = 0; i < index; i++)
+	{
+		fseek(plik_do_zapisu, 0L, SEEK_END);
+		fprintf(plik_do_zapisu, "%s %d\n", tablica[i].producent, tablica[i].cena);
+	}
+	fclose(plik_do_zapisu);
+}
 
 
 int main()
 {
 	komputer tablica[50];
-	
+
 	bool koniec = false;
-	char ktora;
+	int ktora;
 	int index = 0;
 
 	void(*funkcje[])(komputer tab[50], int &index) = { wpisywanie, wyswietlanie, tansze, odczytywanie, zapisywanie };
 
 	while (!koniec)
 	{
-		printf("Wybierz opcje:\n1 - nowy komputer\n2 - wyswietl info \n3 - cena mniejsza od podanej \n4 - wczytaj z pliku \n5 - zapisz do pliku \n0 - koniec programu\n  ");
-		ktora = vchar();
-		switch (ktora)
+		printf("Wybierz opcje:\n1 - nowy komputer\n2 - wyswietl info \n3 - cena mniejsza od podanej \n4 - wczytaj z pliku \n5 - zapisz do pliku \n0 - koniec programu\n");
+		scanf_s("%d", &ktora);
+		if (ktora == 0)
 		{
-		case '1':
-			funkcje[0](tablica,index);
-			break;
-		case '2':
-			funkcje[1](tablica,index);
-			break;
-		case '3':
-			funkcje[2](tablica, index);
-			break;
-		case '4':
-			funkcje[3](tablica,index);
-			break;
-		case '5':
-			funkcje[4](tablica,index);
-			break;
-		case '0':
 			koniec = true;
-			break;
-		default: koniec = true;
 		}
-
+		else
+		{
+			funkcje[ktora-1](tablica, index);
+			
+		}
 	}
-
 
 }
