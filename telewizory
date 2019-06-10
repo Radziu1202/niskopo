@@ -1,0 +1,100 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+
+struct telewizor {
+	char producent[32];
+	int przekatna;
+};
+
+
+char vchar()
+{
+	char cc;
+	while ((cc = getchar()) <= ' ');		//mala i duza litera
+	return cc;
+}
+void dodaj(telewizor tablica[], int &index)
+{
+	printf("producent: ");
+	scanf_s("%s", &tablica[index].producent,32);
+	printf("przekatna: ");
+	scanf_s("%d", &tablica[index].przekatna);
+	index++;
+}
+
+void pokaz(telewizor tablica[], int &index)
+{
+	for (int i = 0; i < index; i++)
+	{
+		printf("%s %d\n", tablica[i].producent, tablica[i].przekatna);
+	}
+}
+
+void wypisz(telewizor tablica[], int &index)
+{
+	int przek;
+	printf("podaj przekatna: ");
+	scanf_s("%d", &przek);
+	for (int i = 0; i < index; i++)
+	{
+		if (tablica[i].przekatna < przek)
+		{
+			printf("%s %d\n",tablica[i].producent,tablica[i].przekatna);
+		}
+	}
+}
+
+void odczytaj(telewizor tablica[], int &index)
+{
+	FILE *plik;
+	fopen_s(&plik, "Kompy.txt", "rt+");
+	if (plik == NULL)
+		printf("\nNie można otworzyć pliku.");
+	while (feof(plik) == 0)
+	{
+		fscanf_s(plik, "%s", tablica[index].producent, 20);
+		fscanf_s(plik, "%d", &tablica[index].przekatna);
+		index++;
+	}
+	fclose(plik);
+}
+
+void zapisz(telewizor tablica[], int &index)
+{
+	FILE *plik_do_zapisu;
+	fopen_s(&plik_do_zapisu, "Kompy.txt", "w+");
+	if (plik_do_zapisu == NULL)
+		printf("\nNie można otworzyć pliku do zapisu.");
+	for (int i = 0; i < index; i++)
+	{
+		fseek(plik_do_zapisu, 0L, SEEK_END);
+		fprintf(plik_do_zapisu, "%s %d\n", tablica[i].producent, tablica[i].przekatna);
+	}
+	fclose(plik_do_zapisu);
+}
+
+
+int main()
+{
+	int index = 0;
+	telewizor tablica[50];
+	void (*T[])(telewizor tablica[], int &index) = { dodaj,pokaz,wypisz,odczytaj,zapisz};
+	bool koniec = false;
+	char ktora;
+	while (!koniec)
+	{
+		printf("Wybierz opcje:\nA - nowy komputer\nB - wyswietl info \nC - przekatna wieksza od podanej \nD - wczytaj z pliku \nE - zapisz do pliku \nX - koniec programu\n  ");
+		ktora = vchar();
+		if (ktora == 'X')
+		{
+			koniec = true;
+		}
+		else
+			T[ktora - 'A'](tablica,index);
+	}
+}
