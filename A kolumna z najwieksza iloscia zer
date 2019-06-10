@@ -1,0 +1,71 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+int najwiecej_zer(unsigned int x)
+{
+	int rozmiar = sizeof(x);
+	int zeros = 0;
+	for (int i = 0; i < rozmiar; i++)
+	{
+	
+		if (!(x & 1))
+			zeros++;
+		
+		//jak jedynek to daj else
+		x >>= 1;
+	}
+	return 0;
+}
+
+void tablica(int N, int M)
+{
+	int wartosc;
+	unsigned int ** tablica = new unsigned int*[N];
+	for (int i = 0; i < M; i++)
+	{
+		tablica[i] = new unsigned int[M];
+	}
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			scanf_s("%u", &tablica[i][j]);
+		}
+	}
+
+	int X = 0;
+	int kolumna = 0;
+	int suma_kolumny = 0;
+
+	for (int i = 0; i < M; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			suma_kolumny += najwiecej_zer(tablica[j][i]);
+		}
+		if (suma_kolumny > X)
+		{
+			kolumna = i;
+		}
+		suma_kolumny = 0;
+	}
+	for (int i = 0; i < N; i++)
+	{
+		printf("%u\d", tablica[i][kolumna]);
+	}
+}
+
+int main()
+{
+		int N, M;
+		printf("podaj N: ");
+		scanf_s("%d", &N);
+		printf("\npodaj M: ");
+		scanf_s("%d", &M);
+		tablica(N, M);
+		return 0;
+}
