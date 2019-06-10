@@ -38,7 +38,7 @@ void wyswietlanie(komputer tablica[],int &index)
 void odczytywanie(komputer tablica[],int &index)
 {
 	FILE *plik;
-	fopen_s(&plik, "Kompy.TXT", "rt+");	
+	fopen_s(&plik, "Kompy.txt", "rt+");	
 	if (plik == NULL)
 		printf("\nNie można otworzyć pliku.");
 	while (feof(plik) == 0)
