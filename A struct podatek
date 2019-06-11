@@ -1,0 +1,90 @@
+#include "pch.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct podatek
+{
+	double kwota;
+	double podatek;
+};
+
+char vchar()
+{
+	char cc;
+	while ((cc = getchar()) <= ' ');		//mala i duza litera
+	return cc;
+}
+
+void rodzice(podatek tablica[], int &index)
+{
+	printf("podaj kwote: ");
+	scanf_s("%lf", &tablica[index].kwota);
+	if (tablica[index].kwota < 64000)
+		tablica[index].podatek = 0;
+	else
+	{
+		tablica[index].podatek = tablica[index].kwota*0.1;
+	}
+	index++;
+}
+
+void rodzenstwo(podatek tablica[], int &index)
+{
+	printf("podaj kwote: ");
+	scanf_s("%lf", &tablica[index].kwota);
+	if (tablica[index].kwota <= 64000)
+		tablica[index].podatek = 250;
+	else
+	{
+		double nadwyzka = tablica[index].kwota - 64000;
+		tablica[index].podatek = 250 + nadwyzka*0.15;
+	}
+	index++;
+}
+
+void inni(podatek tablica[], int &index)
+{
+	printf("podaj kwote: ");
+	scanf_s("%lf", &tablica[index].kwota);
+	tablica[index].podatek = tablica[index].kwota * 0.17;
+	index++;
+}
+
+void zapisz(podatek tablica[], int &index)
+{
+	FILE *plik_do_zapisu;
+	fopen_s(&plik_do_zapisu, "podatek.txt", "w+");
+	if (plik_do_zapisu == NULL)
+		printf("\nNie można otworzyć pliku do zapisu.");
+	for (int i = 0; i < index; i++)
+	{
+		fseek(plik_do_zapisu, 0L, SEEK_END);
+		fprintf(plik_do_zapisu, "%lf %lf\n", tablica[i].kwota, tablica[i].podatek);
+	}
+	fclose(plik_do_zapisu);
+}
+
+
+int main()
+{
+	podatek tablica[50];
+	int index = 0;
+	char opcja;
+	bool koniec = false;
+	void(*funkcje[])(podatek tablica[50], int &index) = {rodzice , rodzenstwo,inni,zapisz };
+	while (!koniec)
+	{
+		printf("Wybierz opcje:\na -dziadkowie - rodzice - dzieci\nb - rodzenstwo, rodzenstwo rodzicow - bratankowie/nice, siostrzency/nice \nc - inni\nd - zapisz \nx - koniec programu \nopcja: ");
+		opcja = vchar();
+		if (opcja == 'x')
+			koniec = true;
+		else
+		{
+			funkcje[opcja - 'a'](tablica, index);
+		}
+		
+	}
+	return 0;
+}
