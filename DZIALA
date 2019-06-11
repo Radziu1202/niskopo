@@ -1,0 +1,43 @@
+#include "stdafx.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+struct pracownik {
+	char nazwisko[32];
+	int stawka;
+	int liczba_godzin;
+};
+
+
+
+int main()
+{
+	int liczba_godzin;
+	int stawka;
+	char nazwisko[32];
+	pracownik tablica[1];
+	FILE *plik, *zapis;
+	fopen_s(&plik, "Spis.txt", "rt+");
+	fopen_s(&zapis, "ListaPlac.txt", "w+");
+	if (plik == NULL)
+		printf("\nNie można otworzyć pliku.");
+	else
+	{
+		while (feof(plik) == 0)
+		{
+			fscanf_s(plik, "%s",nazwisko, 32);
+			fscanf_s(plik, "%d", &stawka);
+			fscanf_s(plik, "%d", &liczba_godzin);
+			double podatek =stawka*liczba_godzin*0.19;
+			double netto = stawka*liczba_godzin - podatek;
+			fseek(zapis, 0L, SEEK_END);
+			fprintf(zapis, "%s\n%lf\n%lf\n", nazwisko, netto, podatek);
+		}
+	}
+		fclose(zapis);
+		fclose(plik);
+    return 0;
+}
+
